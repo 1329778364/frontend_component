@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实现数据的动态绑定</title>
+</head>
+<body>
+    <script>
+      let target = {
+        name: "wlq",
+        age: 20,
+        wife: {
+          name: "wl",
+          age: 18,
+          cars: "奔驰"
+        }
+      };
+      // 对 target 属性进行代理
+      let user = new Proxy(target, {
+        set(target, p, value) {
+          return Reflect.set(target, p, value);
+        },
+        get(target, p, receiver) {
+          return Reflect.get(target, p);
+        },
+        deleteProperty(target, p) {
+          return Reflect.deleteProperty(target, p);
+        },
+        defineProperty(target, p, attributes) {
+          return Reflect.defineProperty(target, p, attributes)
+        }
+      });
+      console.log(user);
+      user.wife.name = "zhangshanshan";
+      console.log(target);
+
+    </script>
+</body>
+</html>

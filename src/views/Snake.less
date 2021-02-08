@@ -1,0 +1,104 @@
+/* 使用变量属性 */
+@color: gold;
+.father{
+	background-color: #42b983;
+}
+/* 使用Mixin混入 */
+.bordered(@size, @type:solid, @color) {
+	border: @size @type @color;
+}
+
+/* 运算操作 */
+@conversion: 5px+5px;
+@width: calc(30% - (@conversion - 30px));
+
+/* 函数 */
+/*
+percentage
+saturate
+lighten
+value: range(10px, 30px, 10);
+*/
+/*
+匹配模式参数
+.bordered(@_) 任何都匹配
+.bordered(T, @size, @type:solid, @color)
+.border(T, ...)
+
+// 整体 参数
+.border(@arguments){
+	border:@arguments
+}
+*/
+// 继承
+.child:extend(.father) {
+	border-bottom: hotpink;
+}
+.body {
+	width: @width;
+	height: 300px;
+	background-color: @color;
+	margin: 20px auto;
+	border-radius: @conversion;
+	.bordered(2px, @type: dotted, black);
+	font: bold 18px "Courier";
+	&:hover{
+		background-color: hotpink;
+	}
+	.stage {
+		width: 202px;
+		height: 242px;
+		.bordered(3px, dotted, black);
+		margin: 10px auto;
+		position: relative;
+
+		.snake {
+			position: relative;
+
+			div {
+				width: 10px;
+				height: 10px;
+				border: 1px solid @color;
+				background-color: red;
+				position: absolute;
+			}
+		}
+
+		.food {
+			width: 10px;
+			height: 10px;
+			border: 1px solid @color;
+			position: absolute;
+			left: 10px;
+			top: 10px;
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-between;
+			align-content: space-between;
+
+			div {
+				width: 4px;
+				height: 4px;
+				background-color: black;
+				transform: rotate(45deg);
+			}
+		}
+	}
+
+	.score-panel {
+		width: 80%;
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		margin: 0 auto;
+
+		div {
+			width: 50%;
+			display: flex;
+			align-items: center;
+			align-self: start;
+		}
+	}
+}
+
+;
